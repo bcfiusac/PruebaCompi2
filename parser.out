@@ -50,6 +50,7 @@ Unused terminals:
     HAVING
     ID
     IF
+    ILIKE
     IN
     INHERITS
     INNER
@@ -89,6 +90,7 @@ Unused terminals:
     SELECT
     SET
     SHOW
+    SIMILAR
     SMALLINT
     SQRT
     SUBSTRING
@@ -168,6 +170,7 @@ GROUP                :
 HAVING               : 
 ID                   : 
 IF                   : 
+ILIKE                : 
 IN                   : 
 INHERITS             : 
 INNER                : 
@@ -209,6 +212,7 @@ RIGHT                :
 SELECT               : 
 SET                  : 
 SHOW                 : 
+SIMILAR              : 
 SMALLINT             : 
 SQRT                 : 
 SUBSTRING            : 

@@ -117,8 +117,8 @@ reservadas = {
     'function' : 'FUNCTION',
     'returns' : 'RETURNS',
     'between' : 'BETWEEN',
-    'ilike' : 'BOOLEAN',
-    'similar' : 'BOOLEAN',
+    'ilike' : 'ILIKE',
+    'similar' : 'SIMILAR',
 
 
 

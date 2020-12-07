@@ -161,11 +161,11 @@ class Interfaz(tk.Frame):
 #-------------------------------------------------------Help Menu Methods---------------------------------------------------------------------
     def about(self):
         box_tilte ="Autor"
-        box_msg = "GRUPO 6\n"+
-                  "JUAN PABLO GARCIA MONZON          2012-22615\n"
-                  "JOSSIE BISMARCK CASTRILLO FAJARDO 2013-13692\n"
-                  "BYRON DAVID CERMENO JUAREZ        2013-13734\n"
-                  "HAYRTON OMAR IXPATA COLOCH        2013-13875"
+        box_msg = "GRUPO 6\n"
+        "JUAN PABLO GARCIA MONZON          2012-22615\n"
+        "JOSSIE BISMARCK CASTRILLO FAJARDO 2013-13692\n"
+        "BYRON DAVID CERMENO JUAREZ        2013-13734\n"
+        "HAYRTON OMAR IXPATA COLOCH        2013-13875"
         messagebox.showinfo(box_tilte,box_msg)
 
     def m_user(self):
@@ -344,6 +344,6 @@ class Interfaz(tk.Frame):
 #-------------------------------------------------------Main---------------------------------------------------------------------       
 if __name__ == "__main__":
     root = tk.Tk()
-    root.title("Sin titulo.txt")
+    root.title("TYTUS SQL Grupo 6")
     Interfaz(root).pack(side="top", fill="both", expand=True)
     root.mainloop()
