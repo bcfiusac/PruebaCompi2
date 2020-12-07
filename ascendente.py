@@ -1,9 +1,9 @@
 import gramaticaAscendente as g
-import gramaticaAscendente as gr
+#import gramaticaAscendente as gr
 import re
 
 
-def ejecucionAscendente(input,input2):
+def ejecucionAscendente(input):
 
     #print("--------------------------------Archivo original---------------------------------------")
     #print(input)

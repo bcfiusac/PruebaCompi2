@@ -227,7 +227,7 @@ def p_inicio(t) :
     
 
 
-def p_query(t):
+"""def p_query(t):
     '''query        : crearBD
                     | mostrarBD
                     | eliminarBD
@@ -245,7 +245,7 @@ def p_query(t):
                     #dentro del select (consulta)
 
 # empiezan las producciones de las operaciones finales
-#la englobacion de las operaciones
+#la englobacion de las operaciones"""
 def p_operacion(t):
     '''operacion        : ENTERO MAS ENTERO
                         | ENTERO MENOS ENTERO

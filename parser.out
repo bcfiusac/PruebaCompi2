@@ -11,6 +11,7 @@ Unused terminals:
     AUTO_INCREMENT
     AVG
     BEGIN
+    BETWEEN
     BIGINT
     BOOLEAN
     BY
@@ -127,6 +128,7 @@ ASC                  :
 AUTO_INCREMENT       : 
 AVG                  : 
 BEGIN                : 
+BETWEEN              : 
 BIGINT               : 
 BOOLEAN              : 
 BY                   : 
