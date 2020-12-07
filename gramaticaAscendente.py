@@ -226,6 +226,24 @@ def p_inicio(t) :
     t[0]=t[1]  
     
 
+
+def p_query(t):
+    '''query        : crearBD
+                    | mostrarBD
+                    | eliminarBD
+                    | crearTabla
+                    | modificarBD
+                    | eliminarTabla
+                    | alterTabla
+                    | insertarRegistro
+                    | modificarRegistro
+                    | eliminarRegistro
+                    | consulta
+                    | funciones
+                    '''
+                    # derivando cada produccion a cosas como el create, insert, select; funciones como avg, sum, substring irian como otra produccion 
+                    #dentro del select (consulta)
+
 # empiezan las producciones de las operaciones finales
 #la englobacion de las operaciones
 def p_operacion(t):
