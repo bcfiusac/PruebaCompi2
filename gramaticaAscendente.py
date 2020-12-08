@@ -79,7 +79,7 @@ reservadas = {
     'ln':'LN',
     'log':'LOG',
     'log10':'LOG10',
-    'current':'CURRENT',
+    #'current':'CURRENT',
     'default' : 'DEFAULT',
     'auto_increment' : 'AUTO_INCREMENT',
     'alter' : 'ALTER',
@@ -228,7 +228,7 @@ tokens  = [
     'MENOS',
     'POR',
     'DIV',
-'DOSPUNTOS',
+    'DOSPUNTOS',
     'PUNTO',
     'TYPECAST',
     'CORCHETEIZQ',
@@ -324,7 +324,7 @@ def t_CADENA(t):
     return t 
 #definife la estructura de las etiquetas, por el momento las tomo unicamente como letras y numeros
 def t_ETIQUETA(t):
-     r'[a-zA-Z0-9]+'
+     r'[a-zA-_Z0-9]+'
      t.type = reservadas.get(t.value.lower(),'ID')    # Check for reserved words
      return t
 
@@ -371,7 +371,7 @@ precedence = (
 # estructura de mi gramatica
 
 
-
+#-----------------------------------------------------INICIO--------------------------------------------------------------------
 def p_inicio_1(t) :
     'inicio               : queries' 
     t[0]=t[1]  
@@ -382,10 +382,13 @@ def p_queries_1(t) :
 def p_queries_2(t) :
     'queries               : query' 
  
+#-----------------------------------------------------LISTA DE FUNCIONES--------------------------------------------------------------------
 
 def p_query(t):
     '''query        : mostrarBD
                     | crearBD
+                    | alterBD
+                    | dropBD
                     
     '''
                     # derivando cada produccion a cosas como el create, insert, select; funciones como avg, sum, substring irian como otra produccion 
@@ -395,6 +398,7 @@ def p_query(t):
 # empiezan las producciones de las operaciones finales
 #la englobacion de las operaciones
 
+#-----------------------------------------------------CREATE DB--------------------------------------------------------------------
 
 def p_crearBaseDatos_1(t):
     'crearBD    : CREATE DATABASE ID PUNTOYCOMA'
@@ -421,10 +425,36 @@ def p_parametroCrearBD(t):
     '''parametroCrearBD :  OWNER IGUAL final
                         |  MODE IGUAL final
     '''
-
+#-----------------------------------------------------SHOW DB--------------------------------------------------------------------
 def p_mostrarBD(t):
     'mostrarBD  : SHOW DATABASES PUNTOYCOMA'
 
+#-----------------------------------------------------ALTER BD--------------------------------------------------------------------
+
+def p_alterBD_1(t):
+    'alterBD    : ALTER DATABASE ID RENAME TO ID PUNTOYCOMA'
+
+def p_alterBD_2(t):
+    'alterBD    : ALTER DATABASE ID OWNER TO parametroAlterUser PUNTOYCOMA'
+
+def p_parametroAlterUser(t):
+    '''parametroAlterUser : CURRENT_USER
+                        |   SESSION_USER
+                        |   final
+    '''
+
+#-----------------------------------------------------DROP BD--------------------------------------------------------------------
+
+def p_dropBD_1(t):
+    'dropBD    : DROP DATABASE ID PUNTOYCOMA'
+
+def p_dropBD_2(t):
+    'dropBD    : DROP DATABASE IF EXISTS ID PUNTOYCOMA'
+
+
+
+
+#-----------------------------------------------------EXPRESION--------------------------------------------------------------------
 
 def p_operacion_menos_unario(t):
     'operacion : MENOS ENTERO  %prec UMINUS'
