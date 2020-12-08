@@ -156,7 +156,8 @@ reservadas = {
     'using':'USING',
     'first':'FIRST',
     'last':'LAST',
-
+    'current_user':'CURRENT_USER',
+    'session_user':'SESSION_USER',
     'symmetric':'SYMMETRIC',
     'izquierda' : 'LEFT',
     'derecha' : 'RIGHT',
