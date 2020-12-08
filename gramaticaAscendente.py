@@ -249,6 +249,7 @@ tokens  = [
     'NOTEQUAL',
     'SIMBOLOOR',
     'SIMBOLOAND',
+    'SIMBOLOAND2',
     'SIMBOLOOR2',
     'NUMERAL',
     'COLOCHO',
@@ -290,9 +291,10 @@ t_COMA                                  = r','
 t_NOTEQUAL                              = r'!='
 t_SIMBOLOOR                             = r'\|\|'
 t_SIMBOLOAND                            = r'&&'
+t_SIMBOLOAND2                           = r'\&'
 t_SIMBOLOOR2                            = r'\|'
-t_NUMERAL                               = r'\#'
-t_COLOCHO                               = r'~'
+t_NUMERAL                               = r'\#' #REVISAR
+t_COLOCHO                               = r'~'  #REVISAR
 t_DESPLAZAMIENTODERECHA                 = r'>>'
 t_DESPLAZAMIENTOIZQUIERDA               = r'<<'
 
@@ -364,6 +366,8 @@ precedence = (
     ('left','MAS','MENOS'),
     ('left','POTENCIA'),
     ('left','POR','DIV','RESIDUO'),
+    ('left','AND','OR','SIMBOLOOR2','SIMBOLOOR','SIMBOLOAND2'),
+    ('left','DESPLAZAMIENTOIZQUIERDA','DESPLAZAMIENTODERECHA'),
     )
 
 
@@ -389,6 +393,7 @@ def p_query(t):
                     | crearBD
                     | alterBD
                     | dropBD
+                    | operacion
                     
     '''
                     # derivando cada produccion a cosas como el create, insert, select; funciones como avg, sum, substring irian como otra produccion 
@@ -454,12 +459,45 @@ def p_dropBD_2(t):
 
 
 
-#-----------------------------------------------------EXPRESION--------------------------------------------------------------------
+#-----------------------------------------------------OPERACIONES Y EXPRESIONES--------------------------------------------------------------------
+def p_operacion(t):
+    '''operacion          : operacion MAS operacion
+                          | operacion MENOS operacion
+                          | operacion POR operacion
+                          | operacion DIV operacion
+                          | operacion RESIDUO operacion
+                          | operacion POTENCIA operacion
+                          | operacion AND operacion
+                          | operacion OR operacion
+                          | operacion SIMBOLOOR2 operacion
+                          | operacion SIMBOLOOR operacion
+                          | operacion SIMBOLOAND2 operacion
+                          | operacion DESPLAZAMIENTOIZQUIERDA operacion
+                          | operacion DESPLAZAMIENTODERECHA operacion
+                          | operacion IGUALIGUAL operacion
+                          | operacion NOTEQUAL operacion
+                          | operacion MAYORIGUAL operacion
+                          | operacion MENORIGUAL operacion
+                          | operacion MAYOR operacion
+                          | operacion MENOR operacion
+                          | operacion DIFERENTE operacion
+                          | PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                          
+                          '''
+def p_operacion_final(t):
+    'operacion :     final'
 
+#-----------------------------------------------------FUNCIONES MATEMATICAS--------------------------------------------------------------------
+# MATEMATICAS
+# TRIGONOMETRICAS
+# ALGUNAS BINARIAS
+
+
+
+#-----------------------------------------------------PRODUCCIONES TERMINALES--------------------------------------------------------------------
 def p_operacion_menos_unario(t):
     'operacion : MENOS ENTERO  %prec UMINUS'
     t[0] = -t[2]
-
 
 def p_final(t):
     '''final              : DECIMAL
@@ -467,6 +505,13 @@ def p_final(t):
 
 def p_final_id(t):
     'final              : ID'
+
+def p_final_invocacion(t):
+    'final              : ID PUNTO ID'
+
+
+
+
 
 #para manejar los errores sintacticos
 #def p_error(t): #en modo panico :v
