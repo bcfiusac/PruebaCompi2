@@ -102,7 +102,7 @@ reservadas = {
     'radians':'RADIANS',
     'round':'ROUND',
     'scale':'SCALE',
-    'sing':'SING',
+    'sign':'SIGN',
     'mode' : 'MODE',
     'owner' : 'OWNER',
     'constraint' : 'CONSTRAINT',
@@ -217,6 +217,11 @@ reservadas = {
     'type':'TYPE',
     'ENUM':'ENUM',
 
+    #para trim
+    'leading':'LEADING',
+    'trailing':'TRAILING',
+    'both':'BOTH',
+    'for':'FOR'
 
 
 # revisar funciones de tiempo y fechas
@@ -289,7 +294,7 @@ t_PARENTESISIZQUIERDA                   = r'\('
 t_PARENTESISDERECHA                     = r'\)'
 t_COMA                                  = r','
 t_NOTEQUAL                              = r'!='
-t_SIMBOLOOR                             = r'\|\|'
+t_SIMBOLOOR                             = r'\|\|' #esto va a concatenar cadenas 
 t_SIMBOLOAND                            = r'&&'
 t_SIMBOLOAND2                           = r'\&'
 t_SIMBOLOOR2                            = r'\|'
@@ -487,6 +492,9 @@ def p_operacion(t):
                           | PARENTESISIZQUIERDA operacion PARENTESISDERECHA
                           
                           '''
+
+def p_operacion_funcion(t):
+    'operacion  : funcionBasica'
 def p_operacion_final(t):
     'operacion :     final'
 
@@ -494,8 +502,88 @@ def p_operacion_final(t):
 # MATEMATICAS
 # TRIGONOMETRICAS
 # ALGUNAS BINARIAS
+# poner PI?
 
+#FUNCOINES SIMPLES DE 1 PARAMETRO
+def p_funcion_basica(t):
+    '''funcionBasica    : ABS PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | CBRT PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | CEIL PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | CEILING PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | DEGREES PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | DIV PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | EXP PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | FACTORIAL PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | FLOOR PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | GCD PARENTESISIZQUIERDA operacion COMA operacion PARENTESISDERECHA
+                        | LCM PARENTESISIZQUIERDA operacion COMA operacion PARENTESISDERECHA
+                        | LN PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | LOG PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | LOG10 PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | MIN_SCALE PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | MOD PARENTESISIZQUIERDA operacion COMA operacion PARENTESISDERECHA
+                        | POWER PARENTESISIZQUIERDA operacion COMA operacion PARENTESISDERECHA
+                        | RADIANS PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | ROUND PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | SCALE ROUND PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | SIGN ROUND PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | SQRT ROUND PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | TRIM_SCALE ROUND PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | TRUC ROUND PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | WIDTH_BUCKET PARENTESISIZQUIERDA operacion COMA operacion COMA operacion COMA operacion PARENTESISDERECHA
+                        | RANDOM PARENTESISIZQUIERDA PARENTESISDERECHA
+                        | SETSEED PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | ACOS  PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | ACOSD PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | ASIN PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | ASIND PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | ATAN PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | ATAN2 PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | COS PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | COSD  PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | COT PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | COTD PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | SIN PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | SIND PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | TAN PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | TAND  PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | SINH PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | COSH PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | TANH PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | ASINH PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | ACOSH PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | ATANH PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | LENGTH PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | TRIM PARENTESISIZQUIERDA opcionTrim operacion FROM operacion PARENTESISDERECHA
+                        | GET_BYTE PARENTESISIZQUIERDA operacion COMA operacion PARENTESISDERECHA
+                        | MD5 PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | SET_BYTE PARENTESISIZQUIERDA operacion COMA operacion COMA operacion PARENTESISDERECHA
+                        | SHA256 PARENTESISIZQUIERDA operacion PARENTESISDERECHA
+                        | SUBSTR PARENTESISIZQUIERDA operacion  COMA operacion COMA operacion PARENTESISDERECHA
+                        | CONVERT PARENTESISIZQUIERDA operacion  COMA operacion COMA operacion PARENTESISDERECHA
+                        | ENCODE PARENTESISIZQUIERDA operacion  COMA operacion  PARENTESISDERECHA
+                        | DECODE PARENTESISIZQUIERDA operacion  COMA operacion  PARENTESISDERECHA
+    '''
 
+def p_funcion_basica_1(t):
+    'funcionBasica   : SUBSTRING PARENTESISIZQUIERDA operacion FROM operacion FOR operacion PARENTESISDERECHA'
+
+def p_funcion_basica_2(t):
+    'subcfuncionBasicaadea   : SUBSTRING PARENTESISIZQUIERDA operacion FROM operacion PARENTESISDERECHA'
+   
+def p_funcion_basica_3(t):
+    'funcionBasica   : SUBSTRING PARENTESISIZQUIERDA operacion FOR operacion PARENTESISDERECHA'
+
+ 
+def p_opcionTrim(t):
+    ''' opcionTrim  : LEADING
+                    | TRAILING
+                    | BOTH
+    '''
+    
+    
+    
+    # falta mandar a las funciones de fechas y dates y todo eso
 
 #-----------------------------------------------------PRODUCCIONES TERMINALES--------------------------------------------------------------------
 def p_operacion_menos_unario(t):
@@ -511,6 +599,9 @@ def p_final_id(t):
 
 def p_final_invocacion(t):
     'final              : ID PUNTO ID'
+
+def p_final_cadena(t):
+    'final  : CADENA'
 
 #-----------------------------------------------------INSERT BD--------------------------------------------------------------------
 def p_insertBD_1(t):
