@@ -113,6 +113,19 @@ reservadas = {
     'char' : 'CHAR',
     'text' : 'TEXT',
     'boolean' : 'BOOLEAN',
+    'timestamp':'TIMESTAMP',
+    'time':'TIME',
+    'date':'DATE',
+    'interval':'INTERVAL',
+    'year':'YEAR',
+    'month':'MONTH',
+    'day':'DAY',
+    'hour':'HOUR',
+    'minute':'MINUTE',
+    'second':'SECOND',
+    'to':'TO',
+    'true':'TRUE',
+    'false':'FALSE',
     'declare' : 'DECLARE',
     'function' : 'FUNCTION',
     'returns' : 'RETURNS',
@@ -131,10 +144,36 @@ tokens  = [
     'MENOS',
     'POR',
     'DIV',
+'DOSPUNTOS',
+    'PUNTO',
+    'TYPECAST',
+    'CORCHETEIZQ',
+    'CORCHETEDER',
+    'POTENCIA',
+    'RESIDUO',
+    'MAYOR',
+    'MENOR',
+    'IGUAL',
+    'MAYORIGUAL',
+    'MENORIGUAL',
+    'DIFERENTE',
+    'IGUALIGUAL',
+    'PARENTESISIZQUIERDA',
+    'PARENTESISDERECHA',
+
+    'COMA',
+    'NOTEQUAL',
+    'SIMBOLOOR',
+    'SIMBOLOAND',
+    'SIMBOLOOR2',
+    'NUMERAL',
+    'COLOCHO',
+    'DESPLAZAMIENTODERECHA',
+    'DESPLAZAMIENTOIZQUIERDA',
 
 
 #tokens que si devuelven valor
-    'DECIMAL',
+    'DECIMALTOKEN',
     'ENTERO',
     'CADENA',
     'ETIQUETA',
@@ -142,16 +181,41 @@ tokens  = [
 ] + list(reservadas.values())
 
 # Tokens y la forma en la que se usaran en el lenguaje
-t_PUNTOYCOMA        = r';'
-t_MAS               = r'\+'
-t_MENOS             = r'-'
-t_POR               = r'\*'
-t_DIV               = r'/'
+t_PUNTOYCOMA                            = r';'
+t_MAS                                   = r'\+'
+t_MENOS                                 = r'-'
+t_POR                                   = r'\*'
+t_DIV                                   = r'/'
+t_DOSPUNTOS                             = r':'
+t_PUNTO                                 = r'.'
+t_TYPECAST                              = r'::'
+t_CORCHETEDER                           = r']'
+t_CORCHETEIZQ                           = r'\['
+t_POTENCIA                              = r'\^'
+t_RESIDUO                               = r'%'
+t_MAYOR                                 = r'<'
+t_MENOR                                 = r'>'
+t_IGUAL                                 = r'='
+t_MAYORIGUAL                            = r'>='
+t_MENORIGUAL                            = r'<='
+t_DIFERENTE                             = r'<>'
+t_IGUALIGUAL                            = r'=='
+t_PARENTESISIZQUIERDA                   = r'\('
+t_PARENTESISDERECHA                     = r'\)'
+t_COMA                                  = r','
+t_NOTEQUAL                              = r'!='
+t_SIMBOLOOR                             = r'\|\|'
+t_SIMBOLOAND                            = r'&&'
+t_SIMBOLOOR2                            = r'\|'
+t_NUMERAL                               = r'\#'
+t_COLOCHO                               = r'~'
+t_DESPLAZAMIENTODERECHA                 = r'>>'
+t_DESPLAZAMIENTOIZQUIERDA               = r'<<'
 
 
 
 #definife la estructura de los decimales
-def t_DECIMAL(t):
+def t_DECIMALTOKEN(t):
     r'\d+\.\d+'
     try:
         t.value = float(t.value)
@@ -189,7 +253,9 @@ def t_COMENTARIO_SIMPLE(t):
     r'--.*\n'
     t.lexer.lineno += 1
 
-
+def t_COMENTARIO_MULTILINEA(t):
+    r'/\*(.|\n|)*?\*/'
+    t.lexer.lineno += t.value.count("\n")
 # ----------------------- Caracteres ignorados -----------------------
 # caracter equivalente a un tab
 t_ignore = " \t"
@@ -213,8 +279,11 @@ lexer = lex.lex()
 
 # Asociación de operadores y precedencia
 precedence = (
+    ('left','TYPECAST'),
+    ('right','UMINUS'),
     ('left','MAS','MENOS'),
-    ('left','POR','DIV')
+    ('left','POTENCIA'),
+    ('left','POR','DIV','RESIDUO'),
     )
 
 
@@ -231,6 +300,16 @@ def p_inicio(t) :
 
 """def p_query(t):
     '''query        : crearBD
+                    
+                    '''
+                    # derivando cada produccion a cosas como el create, insert, select; funciones como avg, sum, substring irian como otra produccion 
+                    #dentro del select (consulta)
+
+
+# empiezan las producciones de las operaciones finales
+#la englobacion de las operaciones"""
+
+""" 
                     | mostrarBD
                     | eliminarBD
                     | crearTabla
@@ -242,12 +321,8 @@ def p_inicio(t) :
                     | eliminarRegistro
                     | consulta
                     | funciones
-                    '''
-                    # derivando cada produccion a cosas como el create, insert, select; funciones como avg, sum, substring irian como otra produccion 
-                    #dentro del select (consulta)
 
-# empiezan las producciones de las operaciones finales
-#la englobacion de las operaciones"""
+"""
 def p_operacion(t):
     '''operacion        : ENTERO MAS ENTERO
                         | ENTERO MENOS ENTERO
@@ -258,7 +333,9 @@ def p_operacion(t):
         t[0]=t[1]-t[3]
 
 
-
+def p_operacion_menos_unario(t):
+    'operacion : MENOS ENTERO  %prec UMINUS'
+    t[0] = -t[2]
 
 
 

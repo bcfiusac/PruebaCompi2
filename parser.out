@@ -20,19 +20,30 @@ Unused terminals:
     CHAR
     CHARACTER
     CHECK
+    COLOCHO
     COLUMN
     COLUMNS
+    COMA
     CONCAT
     CONSTRAINT
+    CORCHETEDER
+    CORCHETEIZQ
     CREATE
     DATABASES
+    DATE
+    DAY
     DECIMAL
+    DECIMALTOKEN
     DECLARE
     DEFAULT
     DELETE
     DESC
+    DESPLAZAMIENTODERECHA
+    DESPLAZAMIENTOIZQUIERDA
+    DIFERENTE
     DISTINCT
     DIV
+    DOSPUNTOS
     DOUBLE
     DROP
     ELSE
@@ -41,6 +52,7 @@ Unused terminals:
     ETIQUETA
     EXCEPT
     EXISTS
+    FALSE
     FOREIGN
     FROM
     FULL
@@ -48,8 +60,11 @@ Unused terminals:
     GREATEST
     GROUP
     HAVING
+    HOUR
     ID
     IF
+    IGUAL
+    IGUALIGUAL
     ILIKE
     IN
     INHERITS
@@ -57,6 +72,7 @@ Unused terminals:
     INSERT
     INTEGER
     INTERSECT
+    INTERVAL
     INTO
     JOIN
     KEY
@@ -65,12 +81,20 @@ Unused terminals:
     LIKE
     LIMIT
     MAX
+    MAYOR
+    MAYORIGUAL
+    MENOR
+    MENORIGUAL
     MIN
+    MINUTE
     MODE
     MONEY
+    MONTH
     NATURAL
     NOT
+    NOTEQUAL
     NULL
+    NUMERAL
     NUMERIC
     OFFSET
     ON
@@ -78,18 +102,27 @@ Unused terminals:
     ORDER
     OUTER
     OWNER
+    PARENTESISDERECHA
+    PARENTESISIZQUIERDA
     POR
+    POTENCIA
     PRIMARY
+    PUNTO
     PUNTOYCOMA
     REAL
     REFERENCES
     RENAME
     REPLACE
+    RESIDUO
     RETURNS
     RIGHT
+    SECOND
     SELECT
     SET
     SHOW
+    SIMBOLOAND
+    SIMBOLOOR
+    SIMBOLOOR2
     SIMILAR
     SMALLINT
     SQRT
@@ -99,8 +132,12 @@ Unused terminals:
     TABLES
     TEXT
     THEN
+    TIME
+    TIMESTAMP
     TO
+    TRUE
     TYPE
+    TYPECAST
     UNION
     UNIQUE
     UPDATE
@@ -111,6 +148,7 @@ Unused terminals:
     VIEW
     WHEN
     WHERE
+    YEAR
 
 Grammar
 
@@ -118,6 +156,7 @@ Rule 0     S' -> inicio
 Rule 1     inicio -> operacion
 Rule 2     operacion -> ENTERO MAS ENTERO
 Rule 3     operacion -> ENTERO MENOS ENTERO
+Rule 4     operacion -> MENOS ENTERO
 
 Terminals, with rules where they appear
 
@@ -139,28 +178,40 @@ CASE                 :
 CHAR                 : 
 CHARACTER            : 
 CHECK                : 
+COLOCHO              : 
 COLUMN               : 
 COLUMNS              : 
+COMA                 : 
 CONCAT               : 
 CONSTRAINT           : 
+CORCHETEDER          : 
+CORCHETEIZQ          : 
 CREATE               : 
 DATABASES            : 
+DATE                 : 
+DAY                  : 
 DECIMAL              : 
+DECIMALTOKEN         : 
 DECLARE              : 
 DEFAULT              : 
 DELETE               : 
 DESC                 : 
+DESPLAZAMIENTODERECHA : 
+DESPLAZAMIENTOIZQUIERDA : 
+DIFERENTE            : 
 DISTINCT             : 
 DIV                  : 
+DOSPUNTOS            : 
 DOUBLE               : 
 DROP                 : 
 ELSE                 : 
 END                  : 
-ENTERO               : 2 2 3 3
+ENTERO               : 2 2 3 3 4
 ENUM                 : 
 ETIQUETA             : 
 EXCEPT               : 
 EXISTS               : 
+FALSE                : 
 FOREIGN              : 
 FROM                 : 
 FULL                 : 
@@ -168,8 +219,11 @@ FUNCTION             :
 GREATEST             : 
 GROUP                : 
 HAVING               : 
+HOUR                 : 
 ID                   : 
 IF                   : 
+IGUAL                : 
+IGUALIGUAL           : 
 ILIKE                : 
 IN                   : 
 INHERITS             : 
@@ -177,6 +231,7 @@ INNER                :
 INSERT               : 
 INTEGER              : 
 INTERSECT            : 
+INTERVAL             : 
 INTO                 : 
 JOIN                 : 
 KEY                  : 
@@ -186,13 +241,21 @@ LIKE                 :
 LIMIT                : 
 MAS                  : 2
 MAX                  : 
-MENOS                : 3
+MAYOR                : 
+MAYORIGUAL           : 
+MENOR                : 
+MENORIGUAL           : 
+MENOS                : 3 4
 MIN                  : 
+MINUTE               : 
 MODE                 : 
 MONEY                : 
+MONTH                : 
 NATURAL              : 
 NOT                  : 
+NOTEQUAL             : 
 NULL                 : 
+NUMERAL              : 
 NUMERIC              : 
 OFFSET               : 
 ON                   : 
@@ -200,18 +263,27 @@ OR                   :
 ORDER                : 
 OUTER                : 
 OWNER                : 
+PARENTESISDERECHA    : 
+PARENTESISIZQUIERDA  : 
 POR                  : 
+POTENCIA             : 
 PRIMARY              : 
+PUNTO                : 
 PUNTOYCOMA           : 
 REAL                 : 
 REFERENCES           : 
 RENAME               : 
 REPLACE              : 
+RESIDUO              : 
 RETURNS              : 
 RIGHT                : 
+SECOND               : 
 SELECT               : 
 SET                  : 
 SHOW                 : 
+SIMBOLOAND           : 
+SIMBOLOOR            : 
+SIMBOLOOR2           : 
 SIMILAR              : 
 SMALLINT             : 
 SQRT                 : 
@@ -221,8 +293,12 @@ TABLE                :
 TABLES               : 
 TEXT                 : 
 THEN                 : 
+TIME                 : 
+TIMESTAMP            : 
 TO                   : 
+TRUE                 : 
 TYPE                 : 
+TYPECAST             : 
 UNION                : 
 UNIQUE               : 
 UPDATE               : 
@@ -233,6 +309,7 @@ VARYING              :
 VIEW                 : 
 WHEN                 : 
 WHERE                : 
+YEAR                 : 
 error                : 
 
 Nonterminals, with rules where they appear
@@ -248,8 +325,10 @@ state 0
     (1) inicio -> . operacion
     (2) operacion -> . ENTERO MAS ENTERO
     (3) operacion -> . ENTERO MENOS ENTERO
+    (4) operacion -> . MENOS ENTERO
 
     ENTERO          shift and go to state 3
+    MENOS           shift and go to state 4
 
     inicio                         shift and go to state 1
     operacion                      shift and go to state 2
@@ -272,32 +351,46 @@ state 3
     (2) operacion -> ENTERO . MAS ENTERO
     (3) operacion -> ENTERO . MENOS ENTERO
 
-    MAS             shift and go to state 4
-    MENOS           shift and go to state 5
+    MAS             shift and go to state 5
+    MENOS           shift and go to state 6
 
 
 state 4
 
-    (2) operacion -> ENTERO MAS . ENTERO
-
-    ENTERO          shift and go to state 6
-
-
-state 5
-
-    (3) operacion -> ENTERO MENOS . ENTERO
+    (4) operacion -> MENOS . ENTERO
 
     ENTERO          shift and go to state 7
 
 
+state 5
+
+    (2) operacion -> ENTERO MAS . ENTERO
+
+    ENTERO          shift and go to state 8
+
+
 state 6
+
+    (3) operacion -> ENTERO MENOS . ENTERO
+
+    ENTERO          shift and go to state 9
+
+
+state 7
+
+    (4) operacion -> MENOS ENTERO .
+
+    $end            reduce using rule 4 (operacion -> MENOS ENTERO .)
+
+
+state 8
 
     (2) operacion -> ENTERO MAS ENTERO .
 
     $end            reduce using rule 2 (operacion -> ENTERO MAS ENTERO .)
 
 
-state 7
+state 9
 
     (3) operacion -> ENTERO MENOS ENTERO .
 

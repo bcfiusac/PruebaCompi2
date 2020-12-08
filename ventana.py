@@ -73,12 +73,13 @@ class Interfaz(tk.Frame):
         file_dropdown.add_separator()
         file_dropdown.add_command(label="Salir", command=self.end)
 
-        run_dropdown.add_command(label="Ejecutar", command=self.ejecutar_ascendente)
+        run_dropdown.add_command(label="Ejecutar Ascendente", command=self.ejecutar_ascendente)
+        run_dropdown.add_command(label="Ejecutar Descendente")
 
-        #report_dropdown.add_command(label="Reporte de Errores Lexicos", command=self.errorReport)
-        #report_dropdown.add_command(label="Reporte de Grafos de JS", command=self.js_report)
-        #report_dropdown.add_command(label="Reporte de Estados de CSS", command=self.state_report)
-        #report_dropdown.add_command(label="Reporte de Errores Sintacticos de RMT", command=self.rmt_report)
+        report_dropdown.add_command(label="Reporte de Errores" )
+        report_dropdown.add_command(label="Reporte AST", )
+        report_dropdown.add_command(label="Reporte de Gramatical")
+        report_dropdown.add_command(label="Tabla de Simbolos" )
         
         help_dropdown.add_command(label="Acerca de", command=self.about)
         help_dropdown.add_command(label="Manual de Usuario", command=self.m_user)
