@@ -394,7 +394,9 @@ def p_query(t):
                     | alterBD
                     | dropBD
                     | operacion
-                    
+                    | insertinBD
+                    | updateinBD
+                    | deleteinBD
     '''
                     # derivando cada produccion a cosas como el create, insert, select; funciones como avg, sum, substring irian como otra produccion 
                     #dentro del select (consulta)
@@ -474,6 +476,7 @@ def p_operacion(t):
                           | operacion SIMBOLOAND2 operacion
                           | operacion DESPLAZAMIENTOIZQUIERDA operacion
                           | operacion DESPLAZAMIENTODERECHA operacion
+                          | operacion IGUAL operacion
                           | operacion IGUALIGUAL operacion
                           | operacion NOTEQUAL operacion
                           | operacion MAYORIGUAL operacion
@@ -509,8 +512,36 @@ def p_final_id(t):
 def p_final_invocacion(t):
     'final              : ID PUNTO ID'
 
+#-----------------------------------------------------INSERT BD--------------------------------------------------------------------
+def p_insertBD_1(t):
+    'insertinBD           : INSERT INTO ID VALUES PARENTESISIZQUIERDA paramInsert PARENTESISDERECHA PUNTOYCOMA'
+
+def p_insertBD_2(t):
+    'insertinBD           : INSERT INTO ID PARENTESISIZQUIERDA paramInsert PARENTESISDERECHA VALUES PARENTESISIZQUIERDA paramInsert PARENTESISDERECHA PUNTOYCOMA'
+
+def p_paramInsert_(t):
+    '''paramInsert        : paramInsert COMA final
+                        |   final
+    '''
+
+#-----------------------------------------------------UPDATE BD--------------------------------------------------------------------
+def p_updateBD(t):
+    'updateinBD           : UPDATE ID SET asignaciones WHERE asignaciones PUNTOYCOMA'
+
+def p_asignaciones(t):
+    '''asignaciones       : asignaciones COMA asigna
+                          | asigna
+    '''
+def p_asigna(t):
+    'asigna             : operacion'
 
 
+#-----------------------------------------------------DELETE IN BD--------------------------------------------------------------------
+def p_deleteinBD_1(t):
+    'deleteinBD         : DELETE FROM ID PUNTOYCOMA'
+
+def p_deleteinBD_2(t):
+    'deleteinBD         : DELETE FROM ID WHERE operacion PUNTOYCOMA'
 
 
 #para manejar los errores sintacticos
