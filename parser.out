@@ -2,12 +2,23 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
+    ABS
+    ACOS
+    ACOSD
+    ACOSH
     ADD
     ALL
     ALTER
     AND
+    ANY
     AS
     ASC
+    ASIN
+    ASIND
+    ASINH
+    ATAN
+    ATAN2
+    ATANH
     AUTO_INCREMENT
     AVG
     BEGIN
@@ -17,6 +28,9 @@ Unused terminals:
     BY
     CADENA
     CASE
+    CBRT
+    CEIL
+    CEILING
     CHAR
     CHARACTER
     CHECK
@@ -26,16 +40,24 @@ Unused terminals:
     COMA
     CONCAT
     CONSTRAINT
+    CONT
+    CONVERT
     CORCHETEDER
     CORCHETEIZQ
-    CREATE
-    DATABASES
+    COS
+    COSD
+    COSH
+    COT
+    COTD
+    CURRENT
+    CURRENT_USER
     DATE
     DAY
-    DECIMAL
     DECIMALTOKEN
     DECLARE
+    DECODE
     DEFAULT
+    DEGREES
     DELETE
     DESC
     DESPLAZAMIENTODERECHA
@@ -47,26 +69,33 @@ Unused terminals:
     DOUBLE
     DROP
     ELSE
+    ENCODE
     END
     ENUM
+    ESCAPE
     ETIQUETA
     EXCEPT
     EXISTS
+    EXP
+    FACTORIAL
     FALSE
+    FIRST
+    FLOOR
     FOREIGN
     FROM
     FULL
     FUNCTION
+    GCD
+    GET_BYTE
     GREATEST
     GROUP
     HAVING
     HOUR
-    ID
     IF
-    IGUAL
     IGUALIGUAL
     ILIKE
     IN
+    INGERITS
     INHERITS
     INNER
     INSERT
@@ -74,98 +103,159 @@ Unused terminals:
     INTERSECT
     INTERVAL
     INTO
+    IS
+    ISNULL
     JOIN
     KEY
+    LAST
+    LCM
     LEAST
     LEFT
+    LENGTH
     LIKE
     LIMIT
+    LN
+    LOG
+    LOG10
+    MAS
     MAX
     MAYOR
     MAYORIGUAL
+    MD5
     MENOR
     MENORIGUAL
     MIN
     MINUTE
-    MODE
+    MIN_SCALE
+    MOD
     MONEY
     MONTH
     NATURAL
     NOT
     NOTEQUAL
+    NOTNULL
     NULL
+    NULLS
     NUMERAL
     NUMERIC
+    OF
     OFFSET
     ON
-    OR
+    ONLY
     ORDER
     OUTER
-    OWNER
     PARENTESISDERECHA
     PARENTESISIZQUIERDA
+    PI
     POR
     POTENCIA
+    POWER
     PRIMARY
     PUNTO
-    PUNTOYCOMA
+    RADIANS
+    RANDOM
     REAL
     REFERENCES
     RENAME
-    REPLACE
     RESIDUO
+    RETURNING
     RETURNS
     RIGHT
+    ROUND
+    SCALE
     SECOND
     SELECT
+    SESSION_USER
     SET
-    SHOW
+    SETSEED
+    SET_BYTE
+    SHA256
     SIMBOLOAND
     SIMBOLOOR
     SIMBOLOOR2
-    SIMILAR
+    SIN
+    SIND
+    SING
+    SINH
     SMALLINT
+    SOME
     SQRT
+    SUBSTR
     SUBSTRING
     SUM
+    SYMMETRIC
     TABLE
     TABLES
+    TAN
+    TAND
+    TANH
     TEXT
     THEN
     TIME
     TIMESTAMP
     TO
+    TRIM
+    TRIM_SCALE
+    TRUC
     TRUE
     TYPE
     TYPECAST
     UNION
     UNIQUE
+    UNKNOWN
     UPDATE
     UPPER
+    USING
     VALUES
     VARCHAR
     VARYING
     VIEW
     WHEN
     WHERE
+    WIDTH_BUCKET
     YEAR
 
 Grammar
 
 Rule 0     S' -> inicio
-Rule 1     inicio -> operacion
-Rule 2     operacion -> ENTERO MAS ENTERO
-Rule 3     operacion -> ENTERO MENOS ENTERO
-Rule 4     operacion -> MENOS ENTERO
+Rule 1     inicio -> queries
+Rule 2     queries -> queries query
+Rule 3     queries -> query
+Rule 4     query -> mostrarBD
+Rule 5     query -> crearBD
+Rule 6     crearBD -> CREATE DATABASE ID PUNTOYCOMA
+Rule 7     crearBD -> CREATE OR REPLACE DATABASE ID PUNTOYCOMA
+Rule 8     crearBD -> CREATE OR REPLACE DATABASE ID parametrosCrearBD PUNTOYCOMA
+Rule 9     crearBD -> CREATE DATABASE ID parametrosCrearBD PUNTOYCOMA
+Rule 10    parametrosCrearBD -> parametrosCrearBD parametroCrearBD
+Rule 11    parametrosCrearBD -> parametroCrearBD
+Rule 12    parametroCrearBD -> OWNER IGUAL final
+Rule 13    parametroCrearBD -> MODE IGUAL final
+Rule 14    mostrarBD -> SHOW DATABASES PUNTOYCOMA
+Rule 15    operacion -> MENOS ENTERO
+Rule 16    final -> DECIMAL
+Rule 17    final -> ENTERO
+Rule 18    final -> ID
 
 Terminals, with rules where they appear
 
+ABS                  : 
+ACOS                 : 
+ACOSD                : 
+ACOSH                : 
 ADD                  : 
 ALL                  : 
 ALTER                : 
 AND                  : 
+ANY                  : 
 AS                   : 
 ASC                  : 
+ASIN                 : 
+ASIND                : 
+ASINH                : 
+ATAN                 : 
+ATAN2                : 
+ATANH                : 
 AUTO_INCREMENT       : 
 AVG                  : 
 BEGIN                : 
@@ -175,6 +265,9 @@ BOOLEAN              :
 BY                   : 
 CADENA               : 
 CASE                 : 
+CBRT                 : 
+CEIL                 : 
+CEILING              : 
 CHAR                 : 
 CHARACTER            : 
 CHECK                : 
@@ -184,16 +277,28 @@ COLUMNS              :
 COMA                 : 
 CONCAT               : 
 CONSTRAINT           : 
+CONT                 : 
+CONVERT              : 
 CORCHETEDER          : 
 CORCHETEIZQ          : 
-CREATE               : 
-DATABASES            : 
+COS                  : 
+COSD                 : 
+COSH                 : 
+COT                  : 
+COTD                 : 
+CREATE               : 6 7 8 9
+CURRENT              : 
+CURRENT_USER         : 
+DATABASE             : 6 7 8 9
+DATABASES            : 14
 DATE                 : 
 DAY                  : 
-DECIMAL              : 
+DECIMAL              : 16
 DECIMALTOKEN         : 
 DECLARE              : 
+DECODE               : 
 DEFAULT              : 
+DEGREES              : 
 DELETE               : 
 DESC                 : 
 DESPLAZAMIENTODERECHA : 
@@ -205,27 +310,36 @@ DOSPUNTOS            :
 DOUBLE               : 
 DROP                 : 
 ELSE                 : 
+ENCODE               : 
 END                  : 
-ENTERO               : 2 2 3 3 4
+ENTERO               : 15 17
 ENUM                 : 
+ESCAPE               : 
 ETIQUETA             : 
 EXCEPT               : 
 EXISTS               : 
+EXP                  : 
+FACTORIAL            : 
 FALSE                : 
+FIRST                : 
+FLOOR                : 
 FOREIGN              : 
 FROM                 : 
 FULL                 : 
 FUNCTION             : 
+GCD                  : 
+GET_BYTE             : 
 GREATEST             : 
 GROUP                : 
 HAVING               : 
 HOUR                 : 
-ID                   : 
+ID                   : 6 7 8 9 18
 IF                   : 
-IGUAL                : 
+IGUAL                : 12 13
 IGUALIGUAL           : 
 ILIKE                : 
 IN                   : 
+INGERITS             : 
 INHERITS             : 
 INNER                : 
 INSERT               : 
@@ -233,105 +347,162 @@ INTEGER              :
 INTERSECT            : 
 INTERVAL             : 
 INTO                 : 
+IS                   : 
+ISNULL               : 
 JOIN                 : 
 KEY                  : 
+LAST                 : 
+LCM                  : 
 LEAST                : 
 LEFT                 : 
+LENGTH               : 
 LIKE                 : 
 LIMIT                : 
-MAS                  : 2
+LN                   : 
+LOG                  : 
+LOG10                : 
+MAS                  : 
 MAX                  : 
 MAYOR                : 
 MAYORIGUAL           : 
+MD5                  : 
 MENOR                : 
 MENORIGUAL           : 
-MENOS                : 3 4
+MENOS                : 15
 MIN                  : 
 MINUTE               : 
-MODE                 : 
+MIN_SCALE            : 
+MOD                  : 
+MODE                 : 13
 MONEY                : 
 MONTH                : 
 NATURAL              : 
 NOT                  : 
 NOTEQUAL             : 
+NOTNULL              : 
 NULL                 : 
+NULLS                : 
 NUMERAL              : 
 NUMERIC              : 
+OF                   : 
 OFFSET               : 
 ON                   : 
-OR                   : 
+ONLY                 : 
+OR                   : 7 8
 ORDER                : 
 OUTER                : 
-OWNER                : 
+OWNER                : 12
 PARENTESISDERECHA    : 
 PARENTESISIZQUIERDA  : 
+PI                   : 
 POR                  : 
 POTENCIA             : 
+POWER                : 
 PRIMARY              : 
 PUNTO                : 
-PUNTOYCOMA           : 
+PUNTOYCOMA           : 6 7 8 9 14
+RADIANS              : 
+RANDOM               : 
 REAL                 : 
 REFERENCES           : 
 RENAME               : 
-REPLACE              : 
+REPLACE              : 7 8
 RESIDUO              : 
+RETURNING            : 
 RETURNS              : 
 RIGHT                : 
+ROUND                : 
+SCALE                : 
 SECOND               : 
 SELECT               : 
+SESSION_USER         : 
 SET                  : 
-SHOW                 : 
+SETSEED              : 
+SET_BYTE             : 
+SHA256               : 
+SHOW                 : 14
 SIMBOLOAND           : 
 SIMBOLOOR            : 
 SIMBOLOOR2           : 
-SIMILAR              : 
+SIN                  : 
+SIND                 : 
+SING                 : 
+SINH                 : 
 SMALLINT             : 
+SOME                 : 
 SQRT                 : 
+SUBSTR               : 
 SUBSTRING            : 
 SUM                  : 
+SYMMETRIC            : 
 TABLE                : 
 TABLES               : 
+TAN                  : 
+TAND                 : 
+TANH                 : 
 TEXT                 : 
 THEN                 : 
 TIME                 : 
 TIMESTAMP            : 
 TO                   : 
+TRIM                 : 
+TRIM_SCALE           : 
+TRUC                 : 
 TRUE                 : 
 TYPE                 : 
 TYPECAST             : 
 UNION                : 
 UNIQUE               : 
+UNKNOWN              : 
 UPDATE               : 
 UPPER                : 
+USING                : 
 VALUES               : 
 VARCHAR              : 
 VARYING              : 
 VIEW                 : 
 WHEN                 : 
 WHERE                : 
+WIDTH_BUCKET         : 
 YEAR                 : 
 error                : 
 
 Nonterminals, with rules where they appear
 
+crearBD              : 5
+final                : 12 13
 inicio               : 0
-operacion            : 1
+mostrarBD            : 4
+operacion            : 
+parametroCrearBD     : 10 11
+parametrosCrearBD    : 8 9 10
+queries              : 1 2
+query                : 2 3
 
 Parsing method: LALR
 
 state 0
 
     (0) S' -> . inicio
-    (1) inicio -> . operacion
-    (2) operacion -> . ENTERO MAS ENTERO
-    (3) operacion -> . ENTERO MENOS ENTERO
-    (4) operacion -> . MENOS ENTERO
+    (1) inicio -> . queries
+    (2) queries -> . queries query
+    (3) queries -> . query
+    (4) query -> . mostrarBD
+    (5) query -> . crearBD
+    (14) mostrarBD -> . SHOW DATABASES PUNTOYCOMA
+    (6) crearBD -> . CREATE DATABASE ID PUNTOYCOMA
+    (7) crearBD -> . CREATE OR REPLACE DATABASE ID PUNTOYCOMA
+    (8) crearBD -> . CREATE OR REPLACE DATABASE ID parametrosCrearBD PUNTOYCOMA
+    (9) crearBD -> . CREATE DATABASE ID parametrosCrearBD PUNTOYCOMA
 
-    ENTERO          shift and go to state 3
-    MENOS           shift and go to state 4
+    SHOW            shift and go to state 6
+    CREATE          shift and go to state 7
 
     inicio                         shift and go to state 1
-    operacion                      shift and go to state 2
+    queries                        shift and go to state 2
+    query                          shift and go to state 3
+    mostrarBD                      shift and go to state 4
+    crearBD                        shift and go to state 5
 
 state 1
 
@@ -341,58 +512,319 @@ state 1
 
 state 2
 
-    (1) inicio -> operacion .
+    (1) inicio -> queries .
+    (2) queries -> queries . query
+    (4) query -> . mostrarBD
+    (5) query -> . crearBD
+    (14) mostrarBD -> . SHOW DATABASES PUNTOYCOMA
+    (6) crearBD -> . CREATE DATABASE ID PUNTOYCOMA
+    (7) crearBD -> . CREATE OR REPLACE DATABASE ID PUNTOYCOMA
+    (8) crearBD -> . CREATE OR REPLACE DATABASE ID parametrosCrearBD PUNTOYCOMA
+    (9) crearBD -> . CREATE DATABASE ID parametrosCrearBD PUNTOYCOMA
 
-    $end            reduce using rule 1 (inicio -> operacion .)
+    $end            reduce using rule 1 (inicio -> queries .)
+    SHOW            shift and go to state 6
+    CREATE          shift and go to state 7
 
+    query                          shift and go to state 8
+    mostrarBD                      shift and go to state 4
+    crearBD                        shift and go to state 5
 
 state 3
 
-    (2) operacion -> ENTERO . MAS ENTERO
-    (3) operacion -> ENTERO . MENOS ENTERO
+    (3) queries -> query .
 
-    MAS             shift and go to state 5
-    MENOS           shift and go to state 6
+    SHOW            reduce using rule 3 (queries -> query .)
+    CREATE          reduce using rule 3 (queries -> query .)
+    $end            reduce using rule 3 (queries -> query .)
 
 
 state 4
 
-    (4) operacion -> MENOS . ENTERO
+    (4) query -> mostrarBD .
 
-    ENTERO          shift and go to state 7
+    SHOW            reduce using rule 4 (query -> mostrarBD .)
+    CREATE          reduce using rule 4 (query -> mostrarBD .)
+    $end            reduce using rule 4 (query -> mostrarBD .)
 
 
 state 5
 
-    (2) operacion -> ENTERO MAS . ENTERO
+    (5) query -> crearBD .
 
-    ENTERO          shift and go to state 8
+    SHOW            reduce using rule 5 (query -> crearBD .)
+    CREATE          reduce using rule 5 (query -> crearBD .)
+    $end            reduce using rule 5 (query -> crearBD .)
 
 
 state 6
 
-    (3) operacion -> ENTERO MENOS . ENTERO
+    (14) mostrarBD -> SHOW . DATABASES PUNTOYCOMA
 
-    ENTERO          shift and go to state 9
+    DATABASES       shift and go to state 9
 
 
 state 7
 
-    (4) operacion -> MENOS ENTERO .
+    (6) crearBD -> CREATE . DATABASE ID PUNTOYCOMA
+    (7) crearBD -> CREATE . OR REPLACE DATABASE ID PUNTOYCOMA
+    (8) crearBD -> CREATE . OR REPLACE DATABASE ID parametrosCrearBD PUNTOYCOMA
+    (9) crearBD -> CREATE . DATABASE ID parametrosCrearBD PUNTOYCOMA
 
-    $end            reduce using rule 4 (operacion -> MENOS ENTERO .)
+    DATABASE        shift and go to state 10
+    OR              shift and go to state 11
 
 
 state 8
 
-    (2) operacion -> ENTERO MAS ENTERO .
+    (2) queries -> queries query .
 
-    $end            reduce using rule 2 (operacion -> ENTERO MAS ENTERO .)
+    SHOW            reduce using rule 2 (queries -> queries query .)
+    CREATE          reduce using rule 2 (queries -> queries query .)
+    $end            reduce using rule 2 (queries -> queries query .)
 
 
 state 9
 
-    (3) operacion -> ENTERO MENOS ENTERO .
+    (14) mostrarBD -> SHOW DATABASES . PUNTOYCOMA
 
-    $end            reduce using rule 3 (operacion -> ENTERO MENOS ENTERO .)
+    PUNTOYCOMA      shift and go to state 12
+
+
+state 10
+
+    (6) crearBD -> CREATE DATABASE . ID PUNTOYCOMA
+    (9) crearBD -> CREATE DATABASE . ID parametrosCrearBD PUNTOYCOMA
+
+    ID              shift and go to state 13
+
+
+state 11
+
+    (7) crearBD -> CREATE OR . REPLACE DATABASE ID PUNTOYCOMA
+    (8) crearBD -> CREATE OR . REPLACE DATABASE ID parametrosCrearBD PUNTOYCOMA
+
+    REPLACE         shift and go to state 14
+
+
+state 12
+
+    (14) mostrarBD -> SHOW DATABASES PUNTOYCOMA .
+
+    SHOW            reduce using rule 14 (mostrarBD -> SHOW DATABASES PUNTOYCOMA .)
+    CREATE          reduce using rule 14 (mostrarBD -> SHOW DATABASES PUNTOYCOMA .)
+    $end            reduce using rule 14 (mostrarBD -> SHOW DATABASES PUNTOYCOMA .)
+
+
+state 13
+
+    (6) crearBD -> CREATE DATABASE ID . PUNTOYCOMA
+    (9) crearBD -> CREATE DATABASE ID . parametrosCrearBD PUNTOYCOMA
+    (10) parametrosCrearBD -> . parametrosCrearBD parametroCrearBD
+    (11) parametrosCrearBD -> . parametroCrearBD
+    (12) parametroCrearBD -> . OWNER IGUAL final
+    (13) parametroCrearBD -> . MODE IGUAL final
+
+    PUNTOYCOMA      shift and go to state 15
+    OWNER           shift and go to state 18
+    MODE            shift and go to state 19
+
+    parametrosCrearBD              shift and go to state 16
+    parametroCrearBD               shift and go to state 17
+
+state 14
+
+    (7) crearBD -> CREATE OR REPLACE . DATABASE ID PUNTOYCOMA
+    (8) crearBD -> CREATE OR REPLACE . DATABASE ID parametrosCrearBD PUNTOYCOMA
+
+    DATABASE        shift and go to state 20
+
+
+state 15
+
+    (6) crearBD -> CREATE DATABASE ID PUNTOYCOMA .
+
+    SHOW            reduce using rule 6 (crearBD -> CREATE DATABASE ID PUNTOYCOMA .)
+    CREATE          reduce using rule 6 (crearBD -> CREATE DATABASE ID PUNTOYCOMA .)
+    $end            reduce using rule 6 (crearBD -> CREATE DATABASE ID PUNTOYCOMA .)
+
+
+state 16
+
+    (9) crearBD -> CREATE DATABASE ID parametrosCrearBD . PUNTOYCOMA
+    (10) parametrosCrearBD -> parametrosCrearBD . parametroCrearBD
+    (12) parametroCrearBD -> . OWNER IGUAL final
+    (13) parametroCrearBD -> . MODE IGUAL final
+
+    PUNTOYCOMA      shift and go to state 21
+    OWNER           shift and go to state 18
+    MODE            shift and go to state 19
+
+    parametroCrearBD               shift and go to state 22
+
+state 17
+
+    (11) parametrosCrearBD -> parametroCrearBD .
+
+    PUNTOYCOMA      reduce using rule 11 (parametrosCrearBD -> parametroCrearBD .)
+    OWNER           reduce using rule 11 (parametrosCrearBD -> parametroCrearBD .)
+    MODE            reduce using rule 11 (parametrosCrearBD -> parametroCrearBD .)
+
+
+state 18
+
+    (12) parametroCrearBD -> OWNER . IGUAL final
+
+    IGUAL           shift and go to state 23
+
+
+state 19
+
+    (13) parametroCrearBD -> MODE . IGUAL final
+
+    IGUAL           shift and go to state 24
+
+
+state 20
+
+    (7) crearBD -> CREATE OR REPLACE DATABASE . ID PUNTOYCOMA
+    (8) crearBD -> CREATE OR REPLACE DATABASE . ID parametrosCrearBD PUNTOYCOMA
+
+    ID              shift and go to state 25
+
+
+state 21
+
+    (9) crearBD -> CREATE DATABASE ID parametrosCrearBD PUNTOYCOMA .
+
+    SHOW            reduce using rule 9 (crearBD -> CREATE DATABASE ID parametrosCrearBD PUNTOYCOMA .)
+    CREATE          reduce using rule 9 (crearBD -> CREATE DATABASE ID parametrosCrearBD PUNTOYCOMA .)
+    $end            reduce using rule 9 (crearBD -> CREATE DATABASE ID parametrosCrearBD PUNTOYCOMA .)
+
+
+state 22
+
+    (10) parametrosCrearBD -> parametrosCrearBD parametroCrearBD .
+
+    PUNTOYCOMA      reduce using rule 10 (parametrosCrearBD -> parametrosCrearBD parametroCrearBD .)
+    OWNER           reduce using rule 10 (parametrosCrearBD -> parametrosCrearBD parametroCrearBD .)
+    MODE            reduce using rule 10 (parametrosCrearBD -> parametrosCrearBD parametroCrearBD .)
+
+
+state 23
+
+    (12) parametroCrearBD -> OWNER IGUAL . final
+    (16) final -> . DECIMAL
+    (17) final -> . ENTERO
+    (18) final -> . ID
+
+    DECIMAL         shift and go to state 27
+    ENTERO          shift and go to state 28
+    ID              shift and go to state 29
+
+    final                          shift and go to state 26
+
+state 24
+
+    (13) parametroCrearBD -> MODE IGUAL . final
+    (16) final -> . DECIMAL
+    (17) final -> . ENTERO
+    (18) final -> . ID
+
+    DECIMAL         shift and go to state 27
+    ENTERO          shift and go to state 28
+    ID              shift and go to state 29
+
+    final                          shift and go to state 30
+
+state 25
+
+    (7) crearBD -> CREATE OR REPLACE DATABASE ID . PUNTOYCOMA
+    (8) crearBD -> CREATE OR REPLACE DATABASE ID . parametrosCrearBD PUNTOYCOMA
+    (10) parametrosCrearBD -> . parametrosCrearBD parametroCrearBD
+    (11) parametrosCrearBD -> . parametroCrearBD
+    (12) parametroCrearBD -> . OWNER IGUAL final
+    (13) parametroCrearBD -> . MODE IGUAL final
+
+    PUNTOYCOMA      shift and go to state 31
+    OWNER           shift and go to state 18
+    MODE            shift and go to state 19
+
+    parametrosCrearBD              shift and go to state 32
+    parametroCrearBD               shift and go to state 17
+
+state 26
+
+    (12) parametroCrearBD -> OWNER IGUAL final .
+
+    PUNTOYCOMA      reduce using rule 12 (parametroCrearBD -> OWNER IGUAL final .)
+    OWNER           reduce using rule 12 (parametroCrearBD -> OWNER IGUAL final .)
+    MODE            reduce using rule 12 (parametroCrearBD -> OWNER IGUAL final .)
+
+
+state 27
+
+    (16) final -> DECIMAL .
+
+    PUNTOYCOMA      reduce using rule 16 (final -> DECIMAL .)
+    OWNER           reduce using rule 16 (final -> DECIMAL .)
+    MODE            reduce using rule 16 (final -> DECIMAL .)
+
+
+state 28
+
+    (17) final -> ENTERO .
+
+    PUNTOYCOMA      reduce using rule 17 (final -> ENTERO .)
+    OWNER           reduce using rule 17 (final -> ENTERO .)
+    MODE            reduce using rule 17 (final -> ENTERO .)
+
+
+state 29
+
+    (18) final -> ID .
+
+    PUNTOYCOMA      reduce using rule 18 (final -> ID .)
+    OWNER           reduce using rule 18 (final -> ID .)
+    MODE            reduce using rule 18 (final -> ID .)
+
+
+state 30
+
+    (13) parametroCrearBD -> MODE IGUAL final .
+
+    PUNTOYCOMA      reduce using rule 13 (parametroCrearBD -> MODE IGUAL final .)
+    OWNER           reduce using rule 13 (parametroCrearBD -> MODE IGUAL final .)
+    MODE            reduce using rule 13 (parametroCrearBD -> MODE IGUAL final .)
+
+
+state 31
+
+    (7) crearBD -> CREATE OR REPLACE DATABASE ID PUNTOYCOMA .
+
+    SHOW            reduce using rule 7 (crearBD -> CREATE OR REPLACE DATABASE ID PUNTOYCOMA .)
+    CREATE          reduce using rule 7 (crearBD -> CREATE OR REPLACE DATABASE ID PUNTOYCOMA .)
+    $end            reduce using rule 7 (crearBD -> CREATE OR REPLACE DATABASE ID PUNTOYCOMA .)
+
+
+state 32
+
+    (8) crearBD -> CREATE OR REPLACE DATABASE ID parametrosCrearBD . PUNTOYCOMA
+    (10) parametrosCrearBD -> parametrosCrearBD . parametroCrearBD
+    (12) parametroCrearBD -> . OWNER IGUAL final
+    (13) parametroCrearBD -> . MODE IGUAL final
+
+    PUNTOYCOMA      shift and go to state 33
+    OWNER           shift and go to state 18
+    MODE            shift and go to state 19
+
+    parametroCrearBD               shift and go to state 22
+
+state 33
+
+    (8) crearBD -> CREATE OR REPLACE DATABASE ID parametrosCrearBD PUNTOYCOMA .
+
+    SHOW            reduce using rule 8 (crearBD -> CREATE OR REPLACE DATABASE ID parametrosCrearBD PUNTOYCOMA .)
+    CREATE          reduce using rule 8 (crearBD -> CREATE OR REPLACE DATABASE ID parametrosCrearBD PUNTOYCOMA .)
+    $end            reduce using rule 8 (crearBD -> CREATE OR REPLACE DATABASE ID parametrosCrearBD PUNTOYCOMA .)
 

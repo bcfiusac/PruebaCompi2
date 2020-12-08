@@ -17,6 +17,7 @@ reservadas = {
     #   PALABRAS RESERVADAS POR SQL
     'show' : 'SHOW',
     'databases' : 'DATABASES',
+    'database' : 'DATABASE',
     'tables' : 'TABLES',
     'columns' : 'COLUMNS',
     'from' : 'FROM',
@@ -270,7 +271,7 @@ t_MENOS                                 = r'-'
 t_POR                                   = r'\*'
 t_DIV                                   = r'/'
 t_DOSPUNTOS                             = r':'
-t_PUNTO                                 = r'.'
+t_PUNTO                                 = r'\.'
 t_TYPECAST                              = r'::'
 t_CORCHETEDER                           = r']'
 t_CORCHETEIZQ                           = r'\['
@@ -315,11 +316,7 @@ def t_ENTERO(t):
         print("El valor del entero es muy grande %d", t.value)
         t.value = 0
     return t
-#definife la estructura de los identificadores que en este caso seran $letra y numero
-def t_ID(t):
-     r'\$[t|a|v|ra|s|p]+[0-9]*'
-     t.type = reservadas.get(t.value.lower(),'ID')    # Check for reserved words
-     return t
+
 #definife la estructura de las cadenas
 def t_CADENA(t):
     r'\'.*?\''
@@ -328,7 +325,7 @@ def t_CADENA(t):
 #definife la estructura de las etiquetas, por el momento las tomo unicamente como letras y numeros
 def t_ETIQUETA(t):
      r'[a-zA-Z0-9]+'
-     t.type = reservadas.get(t.value.lower(),'ETIQUETA')    # Check for reserved words
+     t.type = reservadas.get(t.value.lower(),'ID')    # Check for reserved words
      return t
 
 # Comentario simple # ...
@@ -375,45 +372,58 @@ precedence = (
 
 
 
-def p_inicio(t) :
-    'inicio               : operacion' 
+def p_inicio_1(t) :
+    'inicio               : queries' 
     t[0]=t[1]  
     
+def p_queries_1(t) :
+    'queries               : queries query' 
 
+def p_queries_2(t) :
+    'queries               : query' 
+ 
 
-"""def p_query(t):
-    '''query        : crearBD
+def p_query(t):
+    '''query        : mostrarBD
+                    | crearBD
                     
-                    '''
+    '''
                     # derivando cada produccion a cosas como el create, insert, select; funciones como avg, sum, substring irian como otra produccion 
                     #dentro del select (consulta)
 
 
 # empiezan las producciones de las operaciones finales
-#la englobacion de las operaciones"""
+#la englobacion de las operaciones
 
-""" 
-                    | mostrarBD
-                    | eliminarBD
-                    | crearTabla
-                    | modificarBD
-                    | eliminarTabla
-                    | alterTabla
-                    | insertarRegistro
-                    | modificarRegistro
-                    | eliminarRegistro
-                    | consulta
-                    | funciones
 
-"""
-def p_operacion(t):
-    '''operacion        : ENTERO MAS ENTERO
-                        | ENTERO MENOS ENTERO
-                        '''
-    if (t[2]=="+"):
-        t[0]=t[1]+t[3]
-    elif (t[2]=="-"):
-        t[0]=t[1]-t[3]
+def p_crearBaseDatos_1(t):
+    'crearBD    : CREATE DATABASE ID PUNTOYCOMA'
+
+
+def p_crearBaseDatos_2(t):
+    'crearBD    : CREATE OR REPLACE DATABASE ID PUNTOYCOMA'
+
+def p_crearBaseDatos_3(t):
+    'crearBD    : CREATE OR REPLACE DATABASE ID parametrosCrearBD PUNTOYCOMA'
+
+def p_crearBaseDatos_4(t):
+    'crearBD    : CREATE  DATABASE ID parametrosCrearBD PUNTOYCOMA'
+
+
+
+def p_parametrosCrearBD_1(t):
+    'parametrosCrearBD : parametrosCrearBD parametroCrearBD'
+
+def p_parametrosCrearBD_2(t):
+    'parametrosCrearBD :  parametroCrearBD'
+
+def p_parametroCrearBD(t):
+    '''parametroCrearBD :  OWNER IGUAL final
+                        |  MODE IGUAL final
+    '''
+
+def p_mostrarBD(t):
+    'mostrarBD  : SHOW DATABASES PUNTOYCOMA'
 
 
 def p_operacion_menos_unario(t):
@@ -421,8 +431,12 @@ def p_operacion_menos_unario(t):
     t[0] = -t[2]
 
 
+def p_final(t):
+    '''final              : DECIMAL
+                          | ENTERO'''
 
-
+def p_final_id(t):
+    'final              : ID'
 
 #para manejar los errores sintacticos
 #def p_error(t): #en modo panico :v
