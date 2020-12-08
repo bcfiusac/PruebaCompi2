@@ -132,6 +132,8 @@ tokens  = [
     'POR',
     'DIV',
 
+
+#tokens que si devuelven valor
     'DECIMAL',
     'ENTERO',
     'CADENA',
