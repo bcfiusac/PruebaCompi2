@@ -402,6 +402,7 @@ def p_query(t):
                     | insertinBD
                     | updateinBD
                     | deleteinBD
+                    | createTable
     '''
                     # derivando cada produccion a cosas como el create, insert, select; funciones como avg, sum, substring irian como otra produccion 
                     #dentro del select (consulta)
@@ -634,6 +635,66 @@ def p_deleteinBD_1(t):
 def p_deleteinBD_2(t):
     'deleteinBD         : DELETE FROM ID WHERE operacion PUNTOYCOMA'
 
+
+#-----------------------------------------------------CREATE TABLE--------------------------------------------------------------------
+def p_createTable(t):
+    'createTable        : CREATE TABLE ID PARENTESISIZQUIERDA creaColumnas PARENTESISDERECHA PUNTOYCOMA'
+
+def p_creaColumna(t):
+    '''creaColumnas        : creaColumnas COMA Columna
+                           | Columna 
+    '''
+def p_columna_1(t):
+    '''Columna          : ID tipo  
+                        | ID tipo paramColumn 
+                        | checkinColumn
+                        | uniqueinColumn
+                        | primaryKey'''
+    #                    | foreignKey
+    #'''
+
+def p_paramColumn(t):
+    '''paramColumn      : DEFAULT final
+                        | NOT
+                        | NOT NULL
+                        | CONSTRAINT ID
+                        | checkinColumn
+    '''
+def p_checkinColumn(t):
+    'checkinColumn      : CONSTRAINT ID CHECK PARENTESISIZQUIERDA operacion PARENTESISDERECHA'
+
+
+def p_uniqueinColumn(t):
+    'uniqueinColumn     : UNIQUE PARENTESISIZQUIERDA paramInsert PARENTESISDERECHA'
+
+
+def p_primaryKey(t):
+    'primaryKey         : PRIMARY KEY PARENTESISIZQUIERDA paramInsert PARENTESISDERECHA'
+
+
+def p_foreingkey(t):
+    'foreignKey         : FOREIGN KEY PARENTESISIZQUIERDA paramInsert PARENTESISDERECHA REFERENCES PARENTESISIZQUIERDA paramInsert PARENTESISDERECHA' 
+
+
+def p_tipo(t):
+    '''tipo            : SMALLINT
+                        | INTEGER
+                        | BIGINT
+                        | DECIMAL
+                        | NUMERIC
+                        | REAL
+                        | DOUBLE
+                        | MONEY
+                        | VARYING
+                        | VARCHAR
+                        | CHARACTER
+                        | CHAR
+                        | TEXT
+                        | BOOLEAN
+                        | TIMESTAMP
+                        | TIME
+                        | DATE
+    '''
 
 #para manejar los errores sintacticos
 #def p_error(t): #en modo panico :v
