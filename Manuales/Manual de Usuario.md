@@ -1,6 +1,6 @@
 ﻿![Help Builder Web Site](./Logo.png)
 
-# Manual Técnico - Parser (TytusDB-Fase 1)
+# Manual de Usuario - Parser (TytusDB-Fase 1)
 ### Grupo 6
 <b>Juan Pablo García Monzon - 2012-22615<br>
 Jossie Bismarck Castrillo Fajardo 2013-13692<br>
