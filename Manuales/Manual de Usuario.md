@@ -1,43 +1,53 @@
 ﻿![Help Builder Web Site](./Logo.png)
 
-# Manual de Usuario - Proyecto 2
-Juan Pablo García Monzon - 2012-22615
+# Manual Técnico - Parser (TytusDB-Fase 1)
+### Grupo 6
+<b>Juan Pablo García Monzon - 2012-22615<br>
+Jossie Bismarck Castrillo Fajardo 2013-13692<br>
+Byron David Cermeno Juarez 2013-13734<br>
+Hayrton Omar Ixpata Coloch 2013-13875<br></b>
 
-<b>Este proyecto necesita estos requerimientos para funcionar</b>
+## Este proyecto necesita estos requerimientos para funcionar
 
-* Buscador (Chrome, Edge, etc)
+* Navegador (Chrome, Edge, etc)
 
 * Windows 10, Linux, Mac
 
-* Tener instalado NodeJS, Golang
-
 * 1GB de RAM
 
-* Si es la primera vez descargando este proyecto se recomienda dar un "npm install" especificamente en la carpeta "Java_JS" ya que aquí se encuentra todo el servidor de Backend de NodeJS
+* Python
 
-Flujo del proyecto
-![Help Builder Web Site](./Home.png)
-* Al abrir la aplicacion dar click primero en el botón "+" para agregar una nueva pestaña donde escribir.
-![Help Builder Web Site](./Mas.png)
-* Dar click en el botón "Choose File" para poder buscar el archivo ".java" que se quiera analizar o escribir desde 0 un archivo java en el área de texto "JAVA"
-![Help Builder Web Site](./Choose.png)
-* Luego dar click otra vez en el botón "+" y volver a la pestaña con el nombre del archivo que abrió donde se vera el texto.
-![Help Builder Web Site](./Mas2.png)
-![Help Builder Web Site](./ClickP.png)
-* Luego dar click en el botón "Analizar" que esta en el botón de menú desplegable "Menú".
-![Help Builder Web Site](./MenuA.png)
-![Help Builder Web Site](./Analizar.png)
-* Dar click en el botón "Descargar" y elegir el descargar la traducción del análisis.
-![Help Builder Web Site](./DescargarJS.png)
-![Help Builder Web Site](./DescargarRJS.png)
-* Dar click en el botón "Reportes" para poder ver los reportes como "AST", "Lista de Tokens" o "Tabla de Errores", estos se desplegaran dentro de la misma página un poco abajo.
-![Help Builder Web Site](./Reportes.png)
-![Help Builder Web Site](./AreaReport.png)
-![Help Builder Web Site](./AST.png)
-![Help Builder Web Site](./Error.png)
-![Help Builder Web Site](./Token.png)
-* "Si no se reporto ningun error, la tabla de errores aparecera sin ningun contenido".
-* Dar click en "Menu" "Guardar" o "Guardar Como" para guardar el archivo ".java" 
-![Help Builder Web Site](./Guardar.png)
-* Si da click en "Guardar Como" por favor escribir un nombre de archivo en la caja de texto identificada. 
-![Help Builder Web Site](./GuardarC.png)
+## Estas librerias de Python son necesarias para correr el proyecto:<br>
+```python
+1. os
+2. sys
+3. webbrowser
+4. tkinter
+5. Enum
+6. platform
+7. re
+```
+
+## Flujo del proyecto
+* Primero tener el conocimiento que este parser es para analizar un lenguaje de tipo SQL.
+
+* Para esta primera fase no se ha implementado lo que es un ejecutable del proyecto por lo que todavía se ejecuta el archivo "ventana.py" para empezar.
+![Help Builder Web Site](./ventana.png)<br>
+![Help Builder Web Site](./ventana1.png)
+
+
+* Se pone una cadena de texto para analizar en el área de texto de fondo blanco, se puede copiar y pegar una cadena o utilizar el botón de "Abrir" que se ubica en el menú "Archivo".
+![Help Builder Web Site](./entrada.png)<br>
+![Help Builder Web Site](./entrada1.png)<br>
+![Help Builder Web Site](./entrada2.png)<br>
+
+
+* Al analizar la cadena de texto saldrá una respuesta en la consola, área de texto con fondo negro.
+![Help Builder Web Site](./ejecutar.png)<br>
+![Help Builder Web Site](./ejecutar1.png)<br>
+
+* Se pueden ver todos los reportes generados como "Reporte Gramatical, Reporte de Errores, Reporte de Tabla de Simbolos, Reporte de AST".
+![Help Builder Web Site](./reportes.png)<br>
+
+* Si necesita un flujo mas visual se puede ver el manual de usuario en el menú "Manuales" donde se puede visualizar "Manual de Usuario y Manual Técnico".
+![Help Builder Web Site](./manuales.png)<br>
